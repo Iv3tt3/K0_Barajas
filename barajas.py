@@ -43,3 +43,16 @@ class Baraja:
                 players[jugador].append(carta)
 
         return players
+    
+    def repartir_ninyos(self, mano, jugadores):
+        players = []
+        for jugador in range(jugadores):
+            grupo = []
+            for num_carta in range(mano):
+                carta = self.naipes.pop(0)
+                grupo.append(carta)
+
+            players.append(grupo)
+            
+        return players
+

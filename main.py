@@ -12,3 +12,4 @@ mi_baraja = Baraja(num, pal)
 print(mi_baraja.naipes)
 
 print(mi_baraja.repartir(2,4))
+print(mi_baraja.repartir_ninyos(2,4))
