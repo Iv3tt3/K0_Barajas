@@ -12,10 +12,12 @@ class Deck():
         #Set suits and numbers form .env
         self.suits = os.getenv('SUITS').split(',')
         self.numbers = os.getenv('NUMBERS').split(',')
-        #Create an empty list to store all deck cards
+        #Create an empty list to store all deck cards and a dict to store players
         self.playing_cards = [] 
-        #Call the method to fill the list 
+        self.players={}
+        #Call the method to fill the list playing_cards and the dict players
         self.get_playing_cards()
+        self.get_players()
 
     def get_playing_cards(self):
         #Generate playing cards by addinng all suits of each numbers
@@ -24,8 +26,24 @@ class Deck():
                 card = number + suit
                 self.playing_cards.append(card)
 
+    def get_players(self):
+        players = int(os.getenv('PLAYERS'))
+        for i in range(players):
+            self.players["player"+str(i)] = []
+
     def shuffle(self):
         #Shuffle the playing cards using random library and an index to swap the cards 
         for i in range(len(self.playing_cards)):
             p = random.randrange(0,len(self.playing_cards),1)
             self.playing_cards[i], self.playing_cards[p] = self.playing_cards[p], self.playing_cards[i] 
+
+    def deal_cards(self):
+        if len(self.players) % 2 == 0:
+            i = 0
+            for card in self.playing_cards:
+                if i >= len(self.players):
+                    i=0
+                self.players["player"+str(i)].append(card)
+                i += 1
+        else:
+            pass

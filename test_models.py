@@ -1,6 +1,9 @@
 from models import Deck
-
+import os
+from dotenv import load_dotenv
 import pytest
+
+load_dotenv
 
 # Test to check if deck is created
 def test_create_deck():
@@ -12,6 +15,12 @@ def test_create_deck():
     assert "Kb" in deck.playing_cards
     assert "4e" in deck.playing_cards
 
+def test_create_players():
+    deck = Deck()
+
+    assert len(deck.players)== int(os.getenv('PLAYERS'))
+    assert deck.players['player0'] == []
+
 # Test to check if deck is mixed
 def test_mix_deck():
     deck = Deck()
@@ -22,3 +31,11 @@ def test_mix_deck():
     assert len(deck.playing_cards) == 40
     assert deck.playing_cards != ordened_deck
 
+def test_deal_cards():
+    deck = Deck()
+    deck.deal_cards()
+    players = int(os.getenv('PLAYERS'))
+    if players % 2 == 0:
+        assert len(deck.players['player0']) == len(deck.playing_cards) / players
+    for i in range(players):
+        assert deck.players['player'+str(i)][0] == deck.playing_cards[i]

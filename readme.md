@@ -26,6 +26,7 @@ It is used a mix of both to descrive a playing card, for example the "As" of "Ba
 2. Provide the follwing variables:
     - SUITS: List of all suites. Example: SUITS=o,c,e,b (Use this format without space)
     - NUMBERS: List of cards of one suite. Example: NUMBERS=A,2,3,4,5,6,7,S,C,K (Use this format without space)
+    - PLAYERS: Numbero fo players. Example: PLAYERS=4
 
 ### Libraries
 
