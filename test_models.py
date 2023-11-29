@@ -37,5 +37,7 @@ def test_deal_cards():
     players = int(os.getenv('PLAYERS'))
     if players % 2 == 0:
         assert len(deck.players['player0']) == len(deck.playing_cards) / players
+    else:
+        assert deck.discard_cards != []
     for i in range(players):
         assert deck.players['player'+str(i)][0] == deck.playing_cards[i]

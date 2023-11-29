@@ -14,6 +14,7 @@ class Deck():
         self.numbers = os.getenv('NUMBERS').split(',')
         #Create an empty list to store all deck cards and a dict to store players
         self.playing_cards = [] 
+        self.discard_cards = []
         self.players={}
         #Call the method to fill the list playing_cards and the dict players
         self.get_playing_cards()
@@ -38,12 +39,14 @@ class Deck():
             self.playing_cards[i], self.playing_cards[p] = self.playing_cards[p], self.playing_cards[i] 
 
     def deal_cards(self):
-        if len(self.players) % 2 == 0:
-            i = 0
-            for card in self.playing_cards:
-                if i >= len(self.players):
-                    i=0
-                self.players["player"+str(i)].append(card)
-                i += 1
-        else:
-            pass
+        cards_per_player = len(self.playing_cards) // int(os.getenv('PLAYERS'))
+        discard_cards = len(self.playing_cards) - cards_per_player * int(os.getenv('PLAYERS'))
+        if discard_cards >0:
+            self.discard_cards = self.playing_cards[-discard_cards:]
+            self.playing_cards = self.playing_cards[:-discard_cards]
+        i = 0
+        for card in self.playing_cards:
+            if i >= int(os.getenv('PLAYERS')):
+                i=0
+            self.players["player"+str(i)].append(card)
+            i += 1
